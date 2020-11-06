@@ -7,5 +7,7 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 BattleCity.iml
+.gitignore
+.idea
 
 
