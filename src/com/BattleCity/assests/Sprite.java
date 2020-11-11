@@ -1,63 +1,51 @@
 package com.BattleCity.assests;
 
-import com.BattleCity.main.B_Render;
+import com.BattleCity.core.B_Render;
+
+import java.util.Arrays;
 
 public class Sprite {
     public static Sprite[] tankSprites;
-    public static Sprite[] wallsSprite;
-    public static Sprite[] grassSprite;
-    public static Sprite[] miscSprite;
+    public static Sprite[] levelSprites;
+    public static Sprite voidSprite = new Sprite(16, 16, false, 0x000000);
+    public static Sprite[] missileSprites;
 
     //loading sprites
     static {
-        tankSprites = new Sprite[256];
-        wallsSprite = new Sprite[10];
-        grassSprite = new Sprite[6];
-        miscSprite = new Sprite[49];
+        tankSprites = new Sprite[(SpriteSheet.tankSpriteSheet.getWidth() / 16) * (SpriteSheet.tankSpriteSheet.getHeight() / 16)];
+        levelSprites = new Sprite[(SpriteSheet.levelSpriteSheet.getWidth() / 16) * (SpriteSheet.levelSpriteSheet.getHeight() / 16)];
+        missileSprites = new Sprite[4];
 
         //tank sprites
-        for (int y = 0; y < 256 / 16; y++) {
-            for (int x = 0; x < 256 / 16; x++) {
-                tankSprites[x + y * (256 / 16)] = new Sprite(x * 16, y * 16, 16, 16, true, SpriteSheet.tankSpriteSheet);
+        for (int y = 0; y < SpriteSheet.tankSpriteSheet.getHeight() / 16; y++) {
+            for (int x = 0; x < SpriteSheet.tankSpriteSheet.getWidth() / 16; x++) {
+                tankSprites[x + y * (SpriteSheet.tankSpriteSheet.getWidth() / 16)] = new Sprite(x * 16, y * 16, 16, 16, true, SpriteSheet.tankSpriteSheet);
             }
         }
 
-        //walls
-        wallsSprite[0] = new Sprite(0, 0, 16, 16, true, SpriteSheet.wallSpriteSheet);
-        wallsSprite[1] = new Sprite(16, 16, 16, 16, true, SpriteSheet.wallSpriteSheet);
-        //TODO: initialize half bricks
-//        wallsSprite[2] = new Sprite(16, 0, 16, 16, true, SpriteSheet.wallSpriteSheet);
-//        wallsSprite[3] = new Sprite(32, 0, 16, 16, true, SpriteSheet.wallSpriteSheet);
-//        wallsSprite[4] = new Sprite(48, 0, 16, 16, true, SpriteSheet.wallSpriteSheet);
-//        wallsSprite[5] = new Sprite(64, 0, 16, 16, true, SpriteSheet.wallSpriteSheet);
-
-//        for(int y = 0; y < SpriteSheet.wallSpriteSheet.getHeight() / 16; y++){
-//            for(int x = 0; x < SpriteSheet.wallSpriteSheet.getWidth(); x++){
-//                wallsSprite[x + y * 16] =
-//            }
-//        }
-
-        //grass
-        for (int y = 0; y < SpriteSheet.grassSpriteSheet.getHeight() / 16; y++) {
-            for (int x = 0; x < SpriteSheet.grassSpriteSheet.getWidth() / 16; x++) {
-                grassSprite[x + y * (SpriteSheet.grassSpriteSheet.getWidth() / 16)] = new Sprite(x * 16, y * 16, 16, 16, false, SpriteSheet.grassSpriteSheet);
+        //level sprites
+        for (int y = 0; y < SpriteSheet.levelSpriteSheet.getHeight() / 16; y++) {
+            boolean solid = true;
+            for (int x = 0; x < SpriteSheet.levelSpriteSheet.getWidth() / 16; x++) {
+                if (y > 0 && x > 0) solid = false;
+                levelSprites[x + y * (SpriteSheet.levelSpriteSheet.getWidth() / 16)] = new Sprite(x * 16, y * 16, 16, 16, solid, SpriteSheet.levelSpriteSheet);
             }
         }
 
-        //misc
-        for (int y = 0; y < SpriteSheet.miscSpriteSheet.getHeight() / 16; y++) {
-            for (int x = 0; x < SpriteSheet.miscSpriteSheet.getWidth() / 16; x++) {
-                miscSprite[x + y * (SpriteSheet.miscSpriteSheet.getWidth() / 16)] = new Sprite(x * 16, y * 16, 16, 16, false, SpriteSheet.miscSpriteSheet);
+        //missile
+        for (int y = 0; y < SpriteSheet.missileSpriteSheet.getHeight() / 5; y++) {
+            for (int x = 0; x < SpriteSheet.missileSpriteSheet.getWidth() / 5; x++) {
+                missileSprites[x  ] = new Sprite(x * 5, y * 5, 5, 5, true, SpriteSheet.missileSpriteSheet);
             }
         }
-
 
     }
 
 
-    private int[] pixels;
+    private final int[] pixels;
     private final int WIDTH, HEIGHT;
     private final boolean SOLID;
+
 
     public Sprite(int x, int y, int w, int h, boolean solid, SpriteSheet spriteSheet) {
         SOLID = solid;
@@ -73,8 +61,12 @@ public class Sprite {
         }
     }
 
-    private void load() {
-
+    public Sprite(int w, int h, boolean solid, int color) {
+        SOLID = solid;
+        WIDTH = w;
+        HEIGHT = h;
+        pixels = new int[WIDTH * HEIGHT];
+        Arrays.fill(pixels, color);
     }
 
     public void render(B_Render render) {
@@ -91,5 +83,9 @@ public class Sprite {
 
     public int getHEIGHT() {
         return HEIGHT;
+    }
+
+    public boolean isSOLID() {
+        return SOLID;
     }
 }

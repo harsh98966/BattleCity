@@ -1,6 +1,10 @@
-package com.BattleCity.main;
+package com.BattleCity.core;
 
-import com.BattleCity.assests.Sprite;
+
+import com.BattleCity.assests.TankSprite;
+import com.BattleCity.input.Keyboard;
+import com.BattleCity.level.Level;
+import com.BattleCity.tank.Tank;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +16,7 @@ import java.util.List;
 public class BattleCity implements Runnable {
     // Size of our screen
     private final int WIDTH = 400;
-    private final int HEIGHT = 270;
+    private final int HEIGHT = 272;
     private final int SCALE = 2;
 
     public static final List<B_Renderer> objectRender = new ArrayList<>();
@@ -23,6 +27,10 @@ public class BattleCity implements Runnable {
     private final Canvas CANVAS;
 
     private final B_Render renderer;
+
+    private Level level;
+    private Keyboard keyboard;
+
 
 
     // frame per second
@@ -48,6 +56,15 @@ public class BattleCity implements Runnable {
 
         renderer = new B_Render(WIDTH, HEIGHT);
         running = true;
+        level = new Level();
+        keyboard = new Keyboard();
+
+//        Tank tank = new Tank(50, 90, 100, 100, 0, TankSprite.level1);
+        Tank tank1 = new Tank(200, 100, 100, 100, 2, TankSprite.level1);
+
+
+        FRAME.addKeyListener(keyboard);
+
         THREAD.start();
     }
 
@@ -82,10 +99,13 @@ public class BattleCity implements Runnable {
         for (int i = 0; i < objectRender.size(); i++) {
             B_Renderer b = objectRender.get(i);
             if (b.isRemoved())
-                objectRender.remove(b);
+                objectRender.remove(i);
             else
                 b.update();
         }
+
+        System.out.println("BattleCity: "+ objectRender.size());
+
 
     }
     private void render() {
@@ -97,6 +117,10 @@ public class BattleCity implements Runnable {
         }
 
 
+        renderer.clearBackground();
+        for (B_Renderer r : objectRender) {
+            r.render(renderer);
+        }
 
         BufferedImage image = renderer.getImage();
         Graphics g = bs.getDrawGraphics();
@@ -106,9 +130,6 @@ public class BattleCity implements Runnable {
         bs.show();
 
 
-        for (B_Renderer r : objectRender) {
-            r.render(renderer);
-        }
 
     }
 

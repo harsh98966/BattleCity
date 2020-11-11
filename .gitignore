@@ -8,6 +8,8 @@
 /httpRequests/
 BattleCity.iml
 .gitignore
-.idea
+.idea/
+out/
+
 
 

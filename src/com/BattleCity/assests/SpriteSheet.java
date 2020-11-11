@@ -10,10 +10,9 @@ public class SpriteSheet {
 
     public static final int TRANSPARENT_COLOR = 0xff008000; //background color used in spritesheets
 
-    public static final SpriteSheet tankSpriteSheet = new SpriteSheet("/spritesheets/tanks.png");
-    public static final SpriteSheet wallSpriteSheet = new SpriteSheet("/spritesheets/walls.png");
-    public static final SpriteSheet grassSpriteSheet = new SpriteSheet("/spritesheets/grass.png");
-    public static final SpriteSheet miscSpriteSheet = new SpriteSheet("/spritesheets/misc.png");
+    public static final SpriteSheet tankSpriteSheet = new SpriteSheet("/spritesheets/Tanks/type1.png");
+    public static final SpriteSheet levelSpriteSheet = new SpriteSheet("/spritesheets/level.png");
+    public static final SpriteSheet missileSpriteSheet = new SpriteSheet("/spritesheets/misc/missiles.png");
 
     private int[] pixels;
     private final String path;
