@@ -1,2 +1,0 @@
-25,17
-width, height (in tiles)

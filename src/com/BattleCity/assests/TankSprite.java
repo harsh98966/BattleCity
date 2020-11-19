@@ -4,7 +4,7 @@ import com.BattleCity.tank.Tank;
 
 public class TankSprite {
 
-    public static final TankSprite level1 = new TankSprite(1, SpriteSheet.tankSpriteSheet);
+
 
     private final AnimatedSprite[] animatedSprites;
 
@@ -17,10 +17,10 @@ public class TankSprite {
         Sprite[] right = new Sprite[2];
 
         for (int i = 0; i < 2; i++) {
-            up[i] = new Sprite(i * 16, y * 16, 16, 16, true, sheet);
-            left[i] = new Sprite((i + 2) * 16, y * 16, 16, 16, true, sheet);
-            down[i] = new Sprite((i + 4) * 16, y * 16, 16, 16, true, sheet);
-            right[i] = new Sprite((i + 6) * 16, y * 16, 16, 16, true, sheet);
+            up[i] = new Sprite(i * 16, y * 16, 16, 16, sheet);
+            left[i] = new Sprite((i + 2) * 16, y * 16, 16, 16, sheet);
+            down[i] = new Sprite((i + 4) * 16, y * 16, 16, 16, sheet);
+            right[i] = new Sprite((i + 6) * 16, y * 16, 16, 16, sheet);
         }
 
         animatedSprites[Tank.UP] = new AnimatedSprite(20, up);
@@ -41,4 +41,9 @@ public class TankSprite {
         };
         return s;
     }
+
+    public Sprite getSprite(){
+        return animatedSprites[Tank.DOWN].getSprite();
+    }
+
 }

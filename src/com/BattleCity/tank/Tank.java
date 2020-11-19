@@ -1,107 +1,167 @@
 package com.BattleCity.tank;
 
-import com.BattleCity.assests.Sprite;
+import com.BattleCity.animation.Animation;
+import com.BattleCity.assests.AnimatedSprite;
+import com.BattleCity.assests.Assets;
 import com.BattleCity.assests.TankSprite;
-import com.BattleCity.input.Keyboard;
-import com.BattleCity.core.B_Render;
-import com.BattleCity.core.B_Renderer;
 import com.BattleCity.core.BattleCity;
-import com.BattleCity.level.Collision;
+import com.BattleCity.core.B_Object;
+import com.BattleCity.core.Collision;
 import com.BattleCity.tank.missile.Missile;
-import java.awt.event.KeyEvent;
 
-public class Tank extends B_Renderer {
+
+public abstract class Tank extends B_Object {
+
     public static final int UP = 0;
     public static final int LEFT = 1;
     public static final int DOWN = 2;
     public static final int RIGHT = 3;
 
-    protected int direction, life, damage, speed;
-    protected TankSprite animatedSprites;
-    protected Sprite sprite;
-    protected boolean moving;
-    protected boolean missile;
+    private boolean freeze;
+    private long freezeStartTime;
 
-    public Tank(int x, int y, int life, int damage, int speed, TankSprite sprite) {
-        this.x = x;
-        this.y = y;
-        this.life = life;
-        this.damage = damage;
-        this.speed = speed;
-        this.animatedSprites = sprite;
-        direction = DOWN;
-        this.sprite = animatedSprites.getSprite(this);
-        moving = false;
-        missile = false;
-        BattleCity.objectRender.add(this);
+    protected int tankLevel;
+    protected int direction, damage, life;
+    protected double speed;
+    private boolean aMissile;
+    private Missile missile;
+
+    private long prevMissileTime;
+    private long invincibleStartTime;
+    private long invincibleEndTime;
+    private final AnimatedSprite invincibleAnimation;
+    private Animation animation;
+    protected boolean invincible;
+
+    protected TankSprite[] tankSprite;
+
+    public Tank(int x, int y, int tankLevel, TankSprite[] sprite) {
+        super(x, y, 16, 16, true, sprite[0].getSprite());
+        this.tankSprite = sprite;
+        this.tankLevel = tankLevel;
+        loadLevelValues();
+
+        direction = UP;
+        aMissile = false;
+        prevMissileTime = System.currentTimeMillis();
+        freeze = false;
+        invincible = false;
+        invincibleAnimation = new AnimatedSprite(20, Assets.invincibleSprites);
     }
-
 
     @Override
     public void update() {
-        if (Keyboard.keys[KeyEvent.VK_W]) {
-            direction = UP;
-            move();
-        } else if (Keyboard.keys[KeyEvent.VK_S]) {
-            direction = DOWN;
-            move();
-        } else if (Keyboard.keys[KeyEvent.VK_A]) {
-            direction = LEFT;
-            move();
-        } else if (Keyboard.keys[KeyEvent.VK_D]) {
-            direction = RIGHT;
-            move();
+        if (!aMissile) {
+            missile = null;
         }
-
-        if (Keyboard.keys[KeyEvent.VK_SPACE] && !missile) {
-            missile = true;
-            new Missile(this);
+        if (invincible) {
+            animation.changePos((int) x, (int) y);
+            invincibleStartTime = System.currentTimeMillis();
+            if (invincibleStartTime >= invincibleEndTime) {
+                invincible = false;
+                animation.forceRemove();
+                animation = null;
+            }
         }
-
-    }
-
-    public void move() {
-        sprite = animatedSprites.getSprite(this);
-        int nextX = x;
-        int nextY = y;
-        switch (direction) {
-            default -> nextY -= speed;
-            case DOWN -> nextY += speed;
-            case RIGHT -> nextX += speed;
-            case LEFT -> nextX -= speed;
-        }
-        if (!collide(nextX, nextY)) {
-            x = nextX;
-            y = nextY;
+        if (freeze) {
+            if (System.currentTimeMillis() - freezeStartTime >= 10000) freeze = false;
         }
     }
 
-    private boolean collide(int x, int y) {
-        return Collision.collision(x, y) || Collision.TankCollision(x, y, this);
+    protected boolean move(int direction) {
+        if (!freeze) {
+            if (this.direction != direction) {
+                changeDirection(direction);
+            }
+            sprite = tankSprite[tankLevel].getSprite(this);
+            double tempX = this.x;
+            double tempY = this.y;
+            switch (direction) {
+                default -> y -= speed;
+                case DOWN -> y += speed;
+                case RIGHT -> x += speed;
+                case LEFT -> x -= speed;
+            }
+            if (!moveAllowed()) {
+                x = tempX;
+                y = tempY;
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean moveAllowed() {
+        if (!Collision.outOfBounds((int) x, (int) y, width, height)) {
+            for (B_Object obj : BattleCity.B_Object_List) {
+                if (obj != this && obj != missile && obj.isSolid()) {
+                    if (Collision.areColliding(this, obj)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    protected void shootMissile() {
+        if (!freeze) {
+            if (System.currentTimeMillis() - prevMissileTime >= 300 && !aMissile) {
+                prevMissileTime = System.currentTimeMillis();
+                aMissile = true;
+                double midX = x + width / 2;
+                double midY = y + height / 2;
+                missile = new Missile((int) midX, (int) midY, this);
+            }
+        }
+    }
+
+    private void changeDirection(int direction) {
+        if ((this.direction == UP || this.direction == DOWN) && (direction == RIGHT || direction == LEFT)) {
+            int rem = (int) (y % 8);
+            if (rem != 0) {
+                if (rem <= 4) {
+                    y -= rem;
+                } else {
+                    y += 8 - rem;
+                }
+            }
+        } else if ((this.direction == RIGHT || this.direction == LEFT) && (direction == UP || direction == DOWN)) {
+            int rem = (int) (x % 8);
+            if (rem != 0) {
+                if (rem <= 4) {
+                    x -= rem;
+                } else {
+                    x += 8 - rem;
+                }
+            }
+        }
+        this.direction = direction;
     }
 
     @Override
-    public void render(B_Render render) {
-        render.render(x, y, sprite);
+    public void remove() {
+        if (!invincible) {
+            super.remove();
+            hasdyingAnimation = true;
+            dyingAnimationSprites = Assets.tankBlastSprites;
+        }
     }
 
-    public void setLife(int life) {
-        this.life = life;
-    }
+    protected abstract void loadLevelValues();
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
+    public void levelUp() {
+        if (tankLevel < 3) {
+            tankLevel++;
+        }
+        loadLevelValues();
     }
 
 
-    @Override
-    protected void remove() {
-        super.remove();
-        //TODO: add dying animation
+    public void slipRoad() {
+        move(direction);
     }
 
     public int getDirection() {
@@ -109,11 +169,34 @@ public class Tank extends B_Renderer {
     }
 
     public void setMissile(boolean missile) {
-        this.missile = missile;
+        this.aMissile = missile;
     }
 
-    public Sprite getSprite() {
-        return sprite;
+    public int getDamage() {
+        return damage;
+    }
+
+    public void freeze() {
+        freeze = true;
+        freezeStartTime = System.currentTimeMillis();
+    }
+
+    public int getLevel() {
+        return tankLevel;
+    }
+
+    public void makeInvincible() {
+        invincibleStartTime = System.currentTimeMillis();
+        invincibleEndTime = System.currentTimeMillis() + 12000;
+        invincible = true;
+        if(animation == null)animation = new Animation((int) (x + width / 2), (int) (y + height / 2), false, invincibleAnimation);
+    }
+
+    public void onHit(int damage) {
+        life -= damage;
+        if (life <= 0) {
+            remove();
+        }
     }
 
 }

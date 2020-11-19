@@ -10,19 +10,18 @@ public class SpriteSheet {
 
     public static final int TRANSPARENT_COLOR = 0xff008000; //background color used in spritesheets
 
-    public static final SpriteSheet tankSpriteSheet = new SpriteSheet("/spritesheets/Tanks/type1.png");
-    public static final SpriteSheet levelSpriteSheet = new SpriteSheet("/spritesheets/level.png");
-    public static final SpriteSheet missileSpriteSheet = new SpriteSheet("/spritesheets/misc/missiles.png");
+
 
     private int[] pixels;
     private final String path;
     private int width, height;
-    public SpriteSheet(String path){
+
+    public SpriteSheet(String path) {
         this.path = path;
         load();
     }
 
-    private void load(){
+    private void load() {
         try {
             BufferedImage image = ImageIO.read(this.getClass().getResource(path));
             width = image.getWidth();
