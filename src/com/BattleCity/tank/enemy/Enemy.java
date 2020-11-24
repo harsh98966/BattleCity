@@ -92,7 +92,7 @@ public class Enemy extends Tank {
     private void generatePowerUP() {
         int power = new Random(random.nextLong()).nextInt(7);
         int x = new Random(random.nextLong()).nextInt(13) + 1;
-        int y = new Random(random.nextLong()).nextInt(7) + 7;
+        int y = new Random(random.nextLong()).nextInt(10) + 1;
         switch (power) {
             case 0 -> new Axe(x * 16, y * 16);
             case 1 -> new Bomb(x * 16, y * 16);

@@ -60,6 +60,7 @@ public abstract class Tank extends B_Object {
                 3,
                 new AnimatedSprite(12, Assets.tankBornSprites)
         );
+        this.sprite = sprite[tankLevel].getSprite(this);
 
         this.tankSprite = sprite;
         this.tankLevel = tankLevel;
@@ -132,7 +133,8 @@ public abstract class Tank extends B_Object {
     private boolean moveAllowed() {
         if (currState == tankStates.ALIVE) {
             if (!Collision.outOfBounds((int) x, (int) y, width, height)) {
-                for (B_Object obj : Gameplay.B_Object_List) {
+                for (int i = 0; i < Gameplay.B_Object_List.size(); i++) {
+                    B_Object obj = Gameplay.B_Object_List.get(i);
                     if (obj != this && obj != missile && obj.isSolid()) {
                         if (Collision.areColliding(this, obj)) {
                             return false;

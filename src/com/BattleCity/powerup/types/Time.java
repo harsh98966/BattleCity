@@ -13,7 +13,8 @@ public class Time extends PowerUps {
 
     @Override
     public void setProperties(Tank tank) {
-        for (B_Object t : Gameplay.Tanks) {
+        for (int i = 0; i < Gameplay.Tanks.size(); i++) {
+            B_Object t = Gameplay.Tanks.get(i);
             if (t != tank) {
                 ((Tank) t).freeze();
             }

@@ -61,7 +61,7 @@ public class Loading extends GameState {
 
     @Override
     public void draw(Graphics2D g) {
-        g.setFont(numberFont);
+
         g.setColor(Color.WHITE);
 
 
@@ -82,10 +82,11 @@ public class Loading extends GameState {
 
             // positions are hard-coded
             // because the screen size is fixed
-            g.drawString(Integer.toString(stage), 380, 124);
 
             g.drawString("< Select Level > ", 80, 122);
+            g.setFont(numberFont);
 
+            g.drawString(Integer.toString(stage), 380, 124);
             // up arrow
             image = upAnim.getImage();
             g.drawImage(image, 375, 46, 375 + image.getWidth() + 10, 46 + image.getHeight() + 20, 0, 0, image.getWidth(), image.getHeight(), null);

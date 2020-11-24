@@ -1,5 +1,6 @@
 package com.BattleCity.level.levelgenerator;
 
+import com.BattleCity.core.BattleCity;
 import com.BattleCity.level.levelgenerator.tiles.walls.HardWall;
 import com.BattleCity.level.levelgenerator.tiles.walls.NormalWall;
 import com.BattleCity.level.levelgenerator.tiles.grass.BlueGrass;
@@ -31,7 +32,7 @@ public class LevelGenerator {
         generateLevel();
     }
 
-    public LevelGenerator(File file){
+    public LevelGenerator(File file) {
         path = file.getPath();
         this.file = file;
         generateLevel();
@@ -42,9 +43,9 @@ public class LevelGenerator {
 
         try {
             Scanner sc;
-            if(file == null){
+            if (file == null) {
                 sc = new Scanner(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(path)));
-            } else{
+            } else {
                 sc = new Scanner(file);
             }
 
@@ -67,9 +68,18 @@ public class LevelGenerator {
                         if (y == 8 || y == 16) {
 
                             // enemy spawn locations;
-                            if (x == 16 || x == 24 || x == 16 * 7 || x == 16 * 7 + 8 || x == 16 * 13 || x == 16 * 14)
+                            if (x == 16 || x == 24 || x == 16 * 7 || x == 16 * 7 + 8 || x >= 16 * 13) {
+                                x += 8;
                                 continue;
+                            }
 
+                        }
+
+                        if (y >= 192) {
+                            if (x >= 5 * 16 && x <= 8 * 16) {
+                                x += 8;
+                                continue;
+                            }
                         }
 
 

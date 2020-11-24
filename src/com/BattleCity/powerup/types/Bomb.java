@@ -18,15 +18,8 @@ public class Bomb extends PowerUps {
     public void setProperties(Tank tank) {
 
         if(tank instanceof Player){
-            for(B_Object t : Gameplay.Tanks){
-                if(t != tank){
-                    t.remove();
-                }
-            }
-        }
-
-        else if(tank instanceof Enemy){
-            for(B_Object t : Gameplay.Tanks){
+            for(int i = 0; i < Gameplay.Tanks.size(); i++){
+                B_Object t = Gameplay.Tanks.get(i);
                 if(t != tank){
                     t.remove();
                 }

@@ -89,8 +89,8 @@ public class AI extends GameState {
         score = 0;
 
         time = 0;
-        new Bomb(16, 13 * 16);
         random = new Random();
+
     }
 
     private void generateTanks() {
@@ -208,4 +208,11 @@ public class AI extends GameState {
     }
 
 
+    public void OneUP(Tank tank) {
+        if(tank instanceof Enemy){
+            enemyNum++;
+        } else{
+            maxChances++;
+        }
+    }
 }

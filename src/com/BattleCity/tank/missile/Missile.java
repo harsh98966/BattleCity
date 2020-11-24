@@ -7,6 +7,7 @@ import com.BattleCity.assests.Assets;
 import com.BattleCity.core.B_Object;
 import com.BattleCity.core.Collision;
 import com.BattleCity.core.gameStates.levelState.Gameplay;
+import com.BattleCity.level.levelgenerator.tiles.grass.Grass;
 import com.BattleCity.level.levelgenerator.tiles.walls.HardWall;
 import com.BattleCity.level.levelgenerator.tiles.walls.NormalWall;
 import com.BattleCity.level.queen.QueenAlive;
@@ -91,10 +92,10 @@ public class Missile extends B_Object {
                 }
             } else if(obj instanceof NormalWall){
                 ((NormalWall) obj).onHit(missileDirection);
-            } else{
+            } else if(obj instanceof QueenAlive){
                 obj.remove();
             }
-            remove();
+            if(!(obj instanceof Grass)) remove();
         }
 
 

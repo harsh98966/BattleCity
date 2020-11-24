@@ -74,6 +74,7 @@ public class GameStateManager {
             case INFORMATION -> currState = new Information(this);
             case CONSTRUCT_LEVEL -> currState = new ConstructLevel(this);
         }
+
     }
 
     private void loadFont(){

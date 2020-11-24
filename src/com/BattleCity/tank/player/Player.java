@@ -1,6 +1,7 @@
 package com.BattleCity.tank.player;
 
 import com.BattleCity.assests.Assets;
+import com.BattleCity.core.BattleCity;
 import com.BattleCity.input.Keyboard;
 import com.BattleCity.level.Level;
 import com.BattleCity.tank.Tank;
@@ -10,7 +11,7 @@ import java.awt.event.KeyEvent;
 public class Player extends Tank {
 
     public Player() {
-        super(9 * 16, Level.currLevel.getHeight() - 32, 0, Assets.playerTankSprites);
+        super(5 * 16, BattleCity.HEIGHT - 24, 0, Assets.playerTankSprites);
         makeInvincible();
     }
 
