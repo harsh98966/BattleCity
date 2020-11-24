@@ -2,11 +2,10 @@ package com.BattleCity.core;
 
 import com.BattleCity.assests.Sprite;
 import com.BattleCity.assests.SpriteSheet;
-import com.BattleCity.level.Level;
+
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Arrays;
 
 public class B_Render {
     private BufferedImage image;

@@ -4,7 +4,6 @@ import com.BattleCity.assests.Assets;
 import com.BattleCity.core.gameStates.GameState;
 import com.BattleCity.core.gameStates.levelState.LevelState;
 import com.BattleCity.level.Level;
-import com.BattleCity.powerup.types.*;
 import com.BattleCity.tank.Tank;
 import com.BattleCity.tank.enemy.Enemy;
 import com.BattleCity.tank.player.Player;
@@ -151,6 +150,8 @@ public class AI extends GameState {
     public void update() {
         if (enemyAlive == 0 && enemyNum == 0) {
             levelState.changeState(LevelState.levelStates.PLAYER_WIN);
+            // player wins the game
+
         }
         generateTanks();
         posFree[0] = true;

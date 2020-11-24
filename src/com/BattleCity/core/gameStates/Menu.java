@@ -6,12 +6,7 @@ import com.BattleCity.core.B_Render;
 import com.BattleCity.core.BattleCity;
 import com.BattleCity.core.GameStateManager;
 import com.BattleCity.core.gameStates.levelState.Gameplay;
-import com.BattleCity.core.gameStates.levelState.LevelState;
-import com.BattleCity.input.Keyboard;
 import com.BattleCity.level.Level;
-import com.BattleCity.level.queen.QueenAlive;
-import com.BattleCity.level.queen.QueenBorder;
-import com.BattleCity.level.queen.QueenDied;
 import com.BattleCity.tank.Tank;
 import com.BattleCity.tank.enemy.Enemy;
 

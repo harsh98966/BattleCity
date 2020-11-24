@@ -6,7 +6,6 @@ import com.BattleCity.core.Collision;
 import com.BattleCity.core.GameStateManager;
 import com.BattleCity.core.gameStates.levelState.Gameplay;
 import com.BattleCity.core.gameStates.levelState.LevelState;
-import com.BattleCity.input.Keyboard;
 import com.BattleCity.level.levelgenerator.tiles.grass.*;
 import com.BattleCity.level.levelgenerator.tiles.walls.*;
 

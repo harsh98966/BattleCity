@@ -9,8 +9,6 @@ import com.BattleCity.core.gameStates.levelState.Gameplay;
 import com.BattleCity.tank.missile.Missile;
 import com.BattleCity.tank.player.Player;
 
-import java.awt.*;
-
 
 public abstract class Tank extends B_Object {
 

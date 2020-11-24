@@ -2,7 +2,6 @@ package com.BattleCity.powerup;
 
 import com.BattleCity.assests.Sprite;
 import com.BattleCity.core.B_Object;
-import com.BattleCity.core.BattleCity;
 import com.BattleCity.core.Collision;
 import com.BattleCity.core.gameStates.levelState.Gameplay;
 import com.BattleCity.tank.Tank;

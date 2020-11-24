@@ -4,7 +4,6 @@ import com.BattleCity.assests.AnimatedSprite;
 import com.BattleCity.assests.Assets;
 import com.BattleCity.core.B_Render;
 import com.BattleCity.core.gameStates.GameState;
-import com.BattleCity.level.Level;
 
 
 import java.awt.*;
@@ -14,32 +13,29 @@ import java.awt.image.BufferedImage;
 
 public class Loading extends GameState {
 
-    private LevelState levelState;
-
-    // which stage to load
-    private int stage;
-
-    // difficulty level
-    private int difficulty;
+    private LevelState levelstate;
 
     // custom font
     private Font font;
 
     // font to render numbers
-    private final Font numberFont;
+    private Font numberFont;
 
     // arrows animation
-    private final AnimatedSprite upAnim;
-    private final AnimatedSprite downAnim;
-    private final AnimatedSprite rightAnim;
-    private final AnimatedSprite leftAnim;
+    private AnimatedSprite upAnim;
+    private AnimatedSprite downAnim;
+    private AnimatedSprite rightAnim;
+    private AnimatedSprite leftAnim;
 
 
     public Loading(LevelState levelState) {
-        this.levelState = levelState;
-        stage = 1;
-        difficulty = 1;
-        gsm = levelState.getGsm();
+        this.levelstate = levelState;
+        levelState.setDifficulty(1);
+        init();
+    }
+
+    private void init() {
+        gsm = levelstate.getGsm();
 
         font = new Font(gsm.getFontName(), Font.PLAIN, 30);
         numberFont = new Font("Times Roman", Font.BOLD, 30);
@@ -65,10 +61,9 @@ public class Loading extends GameState {
         g.setColor(Color.WHITE);
 
 
-
         g.setFont(font);
         g.drawString("< Select Difficulty > ", 70, 272);
-        switch (difficulty) {
+        switch (levelstate.getDifficulty()) {
             case 1 -> g.drawString(" Easy ", 180, 340);
             case 2 -> g.drawString("Normal", 180, 340);
             case 3 -> g.drawString(" Hard ", 180, 340);
@@ -78,7 +73,7 @@ public class Loading extends GameState {
         // drawing arrows
         BufferedImage image;
 
-        if(!LevelState.customStage){
+        if (!LevelState.customStage) {
 
             // positions are hard-coded
             // because the screen size is fixed
@@ -86,7 +81,7 @@ public class Loading extends GameState {
             g.drawString("< Select Level > ", 80, 122);
             g.setFont(numberFont);
 
-            g.drawString(Integer.toString(stage), 380, 124);
+            g.drawString(Integer.toString(levelstate.getStage()), 380, 124);
             // up arrow
             image = upAnim.getImage();
             g.drawImage(image, 375, 46, 375 + image.getWidth() + 10, 46 + image.getHeight() + 20, 0, 0, image.getWidth(), image.getHeight(), null);
@@ -111,40 +106,36 @@ public class Loading extends GameState {
     @Override
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_ENTER) {
-            levelState.changeState(LevelState.levelStates.GAMEPLAY);
+            levelstate.changeState(LevelState.levelStates.GAMEPLAY);
         }
         if (k == KeyEvent.VK_UP) {
-            stage--;
-            if (stage <= 0) {
-                stage = 2;
+            levelstate.setStage(levelstate.getStage() - 1);
+            if (levelstate.getStage() <= 0) {
+                levelstate.setStage(2);
             }
         }
         if (k == KeyEvent.VK_DOWN) {
-            stage++;
-            if (stage > 2) {
-                stage = 1;
+            levelstate.setStage(levelstate.getStage() + 1);
+            if (levelstate.getStage() > 2) {
+                levelstate.setStage(1);
             }
         }
         if (k == KeyEvent.VK_RIGHT) {
-            difficulty++;
-            if (difficulty > 3) {
-                difficulty = 1;
+            int d = levelstate.getDifficulty();
+            levelstate.setDifficulty(d + 1);
+            if (levelstate.getDifficulty() > 3) {
+                levelstate.setDifficulty(1);
             }
         }
         if (k == KeyEvent.VK_LEFT) {
-            difficulty--;
-            if (difficulty <= 0) {
-                difficulty = 3;
+            int d = levelstate.getDifficulty();
+            levelstate.setDifficulty(d - 1);
+            if (levelstate.getDifficulty() <= 0) {
+                levelstate.setDifficulty(3);
             }
         }
 
     }
 
-    public int getStage() {
-        return stage;
-    }
-    public int getDifficulty(){
-        return difficulty;
-    }
 
 }

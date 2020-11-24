@@ -1,6 +1,6 @@
 package com.BattleCity.level.levelgenerator;
 
-import com.BattleCity.core.BattleCity;
+
 import com.BattleCity.level.levelgenerator.tiles.walls.HardWall;
 import com.BattleCity.level.levelgenerator.tiles.walls.NormalWall;
 import com.BattleCity.level.levelgenerator.tiles.grass.BlueGrass;

@@ -3,7 +3,6 @@ package com.BattleCity.tank.player;
 import com.BattleCity.assests.Assets;
 import com.BattleCity.core.BattleCity;
 import com.BattleCity.input.Keyboard;
-import com.BattleCity.level.Level;
 import com.BattleCity.tank.Tank;
 
 import java.awt.event.KeyEvent;

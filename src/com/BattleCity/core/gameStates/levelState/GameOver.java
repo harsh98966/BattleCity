@@ -12,9 +12,13 @@ public class GameOver extends GameState {
 
     private LevelState levelState;
 
+    private long lastDrawTime;
+    private boolean drawOnScreen;
     public GameOver(LevelState levelState) {
         this.levelState = levelState;
         gsm = levelState.getGsm();
+        drawOnScreen = true;
+        lastDrawTime = System.currentTimeMillis();
     }
 
 
@@ -40,11 +44,20 @@ public class GameOver extends GameState {
 
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(Color.RED);
+        g.drawRect(80, 50, 325, 115);
+        g.fillRect(80, 50, 325, 115);
+
+        g.setColor(Color.WHITE);
         g.setFont(new Font(gsm.getFontName(), Font.BOLD, 50));
         g.drawString("GameOver", 100, 100);
-        g.setFont(new Font("Arial", Font.PLAIN, 25));
-        g.drawString("Press Enter To Continue..", 100, 150);
+        if(System.currentTimeMillis() - lastDrawTime > 300){
+            lastDrawTime = System.currentTimeMillis();
+            drawOnScreen = !drawOnScreen;
+        }
+        if(drawOnScreen){
+            g.setFont(new Font("Arial", Font.PLAIN, 25));
+            g.drawString("Press Enter To Continue..", 100, 150);
+        }
     }
 
     @Override

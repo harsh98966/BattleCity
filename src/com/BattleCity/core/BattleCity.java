@@ -1,12 +1,11 @@
 package com.BattleCity.core;
 
 import com.BattleCity.input.Keyboard;
-import com.BattleCity.level.Level;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+
+
 
 public class BattleCity implements Runnable {
 

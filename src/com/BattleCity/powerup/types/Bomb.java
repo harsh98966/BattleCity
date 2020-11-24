@@ -2,11 +2,11 @@ package com.BattleCity.powerup.types;
 
 import com.BattleCity.assests.Assets;
 import com.BattleCity.core.B_Object;
-import com.BattleCity.core.BattleCity;
+
 import com.BattleCity.core.gameStates.levelState.Gameplay;
 import com.BattleCity.powerup.PowerUps;
 import com.BattleCity.tank.Tank;
-import com.BattleCity.tank.enemy.Enemy;
+
 import com.BattleCity.tank.player.Player;
 
 public class Bomb extends PowerUps {

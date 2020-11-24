@@ -32,6 +32,7 @@ public class Gameplay extends GameState {
         this.levelState = levelState;
         this.gsm = levelState.getGsm();
 
+
         B_Object_List.clear();
         grasses.clear();
         Tanks.clear();
@@ -40,6 +41,10 @@ public class Gameplay extends GameState {
         else new Level(LevelState.customFile);
         new Player();
         ai = new AI(levelState, difficulty);
+
+        //resetting custom stage flag
+        LevelState.customStage = false;
+        LevelState.customFile = null;
     }
 
 
