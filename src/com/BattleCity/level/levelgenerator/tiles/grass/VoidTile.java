@@ -1,4 +1,4 @@
-package com.BattleCity.level.levelgenerator.tiles;
+package com.BattleCity.level.levelgenerator.tiles.grass;
 
 import com.BattleCity.assests.Assets;
 import com.BattleCity.core.B_Object;

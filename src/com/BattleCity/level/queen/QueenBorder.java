@@ -1,9 +1,8 @@
 package com.BattleCity.level.queen;
 
-import com.BattleCity.level.levelgenerator.tiles.walls.types.HardWall;
-import com.BattleCity.level.levelgenerator.tiles.walls.types.NormalWall;
+import com.BattleCity.level.levelgenerator.tiles.walls.HardWall;
+import com.BattleCity.level.levelgenerator.tiles.walls.NormalWall;
 import com.BattleCity.tank.Tank;
-import com.BattleCity.tank.enemy.Enemy;
 import com.BattleCity.tank.player.Player;
 
 public class QueenBorder {
@@ -56,7 +55,7 @@ public class QueenBorder {
 
     public void update() {
         if (powerUp) {
-            if (System.currentTimeMillis() - powerUpStartTime >= 3000) {
+            if (System.currentTimeMillis() - powerUpStartTime >= 15000) {
                 removeBorder();
                 type = Type.Normal;
                 createBorder();

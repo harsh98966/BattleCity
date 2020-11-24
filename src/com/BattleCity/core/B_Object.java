@@ -1,8 +1,12 @@
 package com.BattleCity.core;
 
+import com.BattleCity.animation.Animation;
 import com.BattleCity.assests.AnimatedSprite;
 import com.BattleCity.assests.Sprite;
+import com.BattleCity.core.gameStates.levelState.Gameplay;
+import com.BattleCity.level.levelgenerator.tiles.grass.GreenGrass;
 import com.BattleCity.tank.Tank;
+
 
 public abstract class B_Object {
 
@@ -13,8 +17,6 @@ public abstract class B_Object {
     private boolean remove;
     protected Sprite sprite;
     protected AnimatedSprite animatedSprite;
-    protected boolean hasdyingAnimation;
-    protected Sprite[] dyingAnimationSprites;
 
 
     public B_Object(int x, int y, int width, int height, boolean solid, Sprite sprite){
@@ -54,14 +56,12 @@ public abstract class B_Object {
         if(animatedSprite != null){
             sprite = animatedSprite.getSprite();
         }
+
         if(sprite != null) render.render(this);
     }
 
-    public boolean OutOfBounds(){
-        return Collision.outOfBounds((int)x, (int)y, width, height);
-    }
 
-    boolean isRemoved(){
+    public boolean isRemoved(){
         return remove;
     }
 
@@ -110,10 +110,17 @@ public abstract class B_Object {
     }
 
     private void add(){
-        if(this instanceof Tank){
-            BattleCity.Tanks.add(this);
+        if(this instanceof Animation){
+            Gameplay.animations.add(this);
+        } else if(this instanceof GreenGrass){
+            Gameplay.grasses.add(this);
         }
-        BattleCity.B_Object_List.add(this);
+        else{
+            if(this instanceof Tank){
+                Gameplay.Tanks.add(this);
+            }
+            Gameplay.B_Object_List.add(this);
+        }
     }
 
 }

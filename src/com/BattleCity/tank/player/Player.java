@@ -11,25 +11,26 @@ public class Player extends Tank {
 
     public Player() {
         super(9 * 16, Level.currLevel.getHeight() - 32, 0, Assets.playerTankSprites);
+        makeInvincible();
     }
 
     @Override
     public void update() {
         super.update();
-        if(!invincible) makeInvincible();
-        if (Keyboard.keys[KeyEvent.VK_UP]) {
-            move(UP);
-        } else if (Keyboard.keys[KeyEvent.VK_DOWN]) {
-            move(DOWN);
-        } else if (Keyboard.keys[KeyEvent.VK_LEFT]) {
-            move(LEFT);
-        } else if (Keyboard.keys[KeyEvent.VK_RIGHT]) {
-            move(RIGHT);
-        }
+        if(currState == tankStates.ALIVE){
+            if (Keyboard.keys[KeyEvent.VK_UP]) {
+                move(UP);
+            } else if (Keyboard.keys[KeyEvent.VK_DOWN]) {
+                move(DOWN);
+            } else if (Keyboard.keys[KeyEvent.VK_LEFT]) {
+                move(LEFT);
+            } else if (Keyboard.keys[KeyEvent.VK_RIGHT]) {
+                move(RIGHT);
+            }
 
-        if (Keyboard.keys[KeyEvent.VK_SHIFT]) {
-            shootMissile();
-//            makeInvincible();
+            if (Keyboard.keys[KeyEvent.VK_SHIFT]) {
+                shootMissile();
+            }
         }
 
     }

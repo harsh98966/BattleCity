@@ -1,11 +1,9 @@
 package com.BattleCity.core;
 
-
-import com.BattleCity.level.queen.QueenAlive;
-
 public class Collision {
+
     public static boolean areColliding(B_Object obj1, B_Object obj2) {
-        if (obj1 == null || obj2 == null ) return false;
+        if (obj1 == null || obj2 == null) return false;
         boolean colliding = false;
         B_Object t1;
         B_Object t2;

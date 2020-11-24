@@ -1,4 +1,4 @@
-package com.BattleCity.level.levelgenerator.tiles.walls.types;
+package com.BattleCity.level.levelgenerator.tiles.walls;
 
 import com.BattleCity.assests.Assets;
 import com.BattleCity.core.B_Object;
@@ -8,6 +8,11 @@ public class NormalWall extends B_Object {
 
     public NormalWall(int x, int y) {
         super(x, y, 8, 8, true, Assets.wall_normalSprite);
+    }
+
+    public NormalWall(int x, int y, int w, int h){
+        super(x, y, 4, 4, true, Assets.wall_normalSprite);
+        spriteWidth = spriteHeight = 4;
     }
 
     @Override
@@ -25,6 +30,5 @@ public class NormalWall extends B_Object {
             case Tank.UP -> spriteHeight = 4;
         }
     }
-
 
 }

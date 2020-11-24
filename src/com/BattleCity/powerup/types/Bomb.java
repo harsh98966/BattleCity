@@ -3,6 +3,7 @@ package com.BattleCity.powerup.types;
 import com.BattleCity.assests.Assets;
 import com.BattleCity.core.B_Object;
 import com.BattleCity.core.BattleCity;
+import com.BattleCity.core.gameStates.levelState.Gameplay;
 import com.BattleCity.powerup.PowerUps;
 import com.BattleCity.tank.Tank;
 import com.BattleCity.tank.enemy.Enemy;
@@ -17,7 +18,7 @@ public class Bomb extends PowerUps {
     public void setProperties(Tank tank) {
 
         if(tank instanceof Player){
-            for(B_Object t : BattleCity.Tanks){
+            for(B_Object t : Gameplay.Tanks){
                 if(t != tank){
                     t.remove();
                 }
@@ -25,7 +26,7 @@ public class Bomb extends PowerUps {
         }
 
         else if(tank instanceof Enemy){
-            for(B_Object t : BattleCity.Tanks){
+            for(B_Object t : Gameplay.Tanks){
                 if(t != tank){
                     t.remove();
                 }

@@ -9,9 +9,13 @@ public class Axe extends PowerUps {
     public Axe(int x, int y) {
         super(x, y, Assets.PowerUpsSprites.axeSprite);
     }
+
+
     @Override
     public void setProperties(Tank tank) {
         QueenBorder.queenBorder.axePowerUp(tank);
     }
+
+
 
 }

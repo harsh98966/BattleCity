@@ -1,10 +1,9 @@
-package com.BattleCity.level.levelgenerator.tiles;
+package com.BattleCity.level.levelgenerator.tiles.grass;
 
 import com.BattleCity.assests.Assets;
-import com.BattleCity.assests.Sprite;
 import com.BattleCity.core.B_Object;
 
-public class BlueGrass extends B_Object implements Grass {
+public class BlueGrass extends B_Object  {
     public BlueGrass(int x, int y) {
         super(x, y, 8, 8, true, Assets.blueGrassSprite);
     }
@@ -12,4 +11,5 @@ public class BlueGrass extends B_Object implements Grass {
     @Override
     public void update() {
     }
+
 }

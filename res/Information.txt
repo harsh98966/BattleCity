@@ -1,0 +1,21 @@
+Hi There,
+My name is Harsh and as you might know this game
+is the copy of old "NES" game "BattleCity(JPN)"
+which was released in mid 80s.
+
+I created this game for my own practice and to learn
+more about game programming(using Java).
+
+Below are some of the websites which i have used to
+download resources for this game.
+
+sprites downloaded from: spriters-resource.com/
+submitter: Superjustinbros
+
+Font downloaded from: 1001fonts.com/
+
+
+
+
+
+

@@ -1,15 +1,25 @@
 package com.BattleCity.level;
 
-import com.BattleCity.core.BattleCity;
 import com.BattleCity.level.levelgenerator.LevelGenerator;
+
+import java.io.File;
 
 public class Level {
 
+    private final int MAX_LEVELS  = 2;
     public static Level currLevel;
     private final int LevelWidthInTiles = 13, LevelHeightInTiles = 13;
-    public Level() {
+    private int stage;
+    public Level(int level) {
         currLevel = this;
-        new LevelGenerator(1);
+        if(level > MAX_LEVELS) level = MAX_LEVELS;
+        stage = level;
+        new LevelGenerator(level);
+    }
+
+    public Level(File file){
+        currLevel = this;
+        new LevelGenerator(file);
     }
 
     public int getWidthInTiles() {
@@ -28,4 +38,5 @@ public class Level {
         return LevelHeightInTiles * 16;
     }
 
+    public int getStage() { return stage; }
 }

@@ -1,5 +1,8 @@
 package com.BattleCity.input;
 
+import com.BattleCity.core.BattleCity;
+import com.BattleCity.core.GameStateManager;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -17,6 +20,7 @@ public class Keyboard implements KeyListener {
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         keys[keyEvent.getKeyCode()] = true;
+        if (BattleCity.gsm != null)BattleCity.gsm.keyPressed(keyEvent.getKeyCode());
     }
 
     @Override

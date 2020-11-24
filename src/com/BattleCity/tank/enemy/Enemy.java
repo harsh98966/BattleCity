@@ -1,6 +1,7 @@
 package com.BattleCity.tank.enemy;
 
 import com.BattleCity.assests.Assets;
+import com.BattleCity.powerup.types.*;
 import com.BattleCity.tank.Tank;
 
 import java.util.Random;
@@ -13,12 +14,16 @@ public class Enemy extends Tank {
     private long lastDirectionChange;
     private long missileShootTime;
 
-    public Enemy(int x, int y, int level) {
-        super(x, y, 0, Assets.enemyTankSprites);
+    private boolean hasPowerUp;
+
+    public Enemy(int x, int y) {
+        super(x, y, 0, Assets.enemy1TankSprites);
         random = new Random(rand.nextLong());
         tankLevel = random.nextInt(4);
+        if(random.nextInt(15) % 7 == 0){
+            hasPowerUp = true;
+        }
         loadLevelValues();
-
         moveDirection = random.nextInt(4);
         time = System.currentTimeMillis();
         lastDirectionChange = System.currentTimeMillis();
@@ -32,7 +37,7 @@ public class Enemy extends Tank {
             missileShootTime = 0;
         }
 
-        if (!move(moveDirection) || System.currentTimeMillis() - time >= 3000) {
+        if (!move(moveDirection) || System.currentTimeMillis() - time >= 7000) {
             time = System.currentTimeMillis();
             if (System.currentTimeMillis() - lastDirectionChange >= 1500) {
                 int d = random.nextInt(4);
@@ -44,7 +49,8 @@ public class Enemy extends Tank {
             }
         }
 
-        if (missileShootTime == random.nextInt(60)) {
+        int rand = random.nextInt(120);
+        if (missileShootTime == rand || missileShootTime * 2 == rand) {
             shootMissile();
         }
 
@@ -69,8 +75,32 @@ public class Enemy extends Tank {
                 life = 300;
             }
         }
+        if(hasPowerUp){
+            tankSprite = Assets.enemy3TankSprites;
+        }
 
     }
 
+    @Override
+    public void remove() {
+        super.remove();
+        if(hasPowerUp){
+            generatePowerUP();
+        }
+    }
 
+    private void generatePowerUP() {
+        int power = new Random(random.nextLong()).nextInt(7);
+        int x = new Random(random.nextLong()).nextInt(13) + 1;
+        int y = new Random(random.nextLong()).nextInt(7) + 7;
+        switch (power) {
+            case 0 -> new Axe(x * 16, y * 16);
+            case 1 -> new Bomb(x * 16, y * 16);
+            case 2 -> new Cap(x * 16, y * 16);
+            case 3 -> new Gun(x * 16, y * 16);
+            case 4 -> new OneUP(x * 16, y * 16);
+            case 5 -> new Star(x * 16, y * 16);
+            case 6 -> new Time(x * 16, y * 16);
+        }
+    }
 }

@@ -32,6 +32,7 @@ public class B_Render {
         for(int y = 0; y < screenHeight; y++){
             for(int x = 0; x < screenWidth; x++){
                 pixels[x + y * screenWidth] = 0xff95a3a2;
+//                pixels[x + y * screenWidth] = 0xff636363;
                 if(x > 16 && x < 224){
                     if(y > 8 && y < 216){
                         pixels[x + y * screenWidth] = BACKGROUND_COLOR;
@@ -65,7 +66,10 @@ public class B_Render {
         for(int yy = obj.getSpriteY(); yy < obj.getSpriteHeight(); yy++){
             for(int xx = obj.getSpriteX(); xx < obj.getSpriteWidth(); xx++){
                 if(x < 0 || y < 0 || x + obj.getWidth() > BattleCity.WIDTH || y + obj.getHeight() > BattleCity.HEIGHT) break;
-                int col = pix[xx + yy * sprite.getWIDTH()];
+                if(xx < 0 || xx >= obj.getSpriteWidth() || yy < 0 || yy >= obj.getSpriteHeight()) continue;
+                int index = xx + yy * sprite.getWIDTH();
+                if(index < 0 || index >= pix.length) continue;
+                int col = pix[index];
                 if(col != SpriteSheet.TRANSPARENT_COLOR) pixels[(x + xx) + (y + yy) * screenWidth] = col;
             }
         }

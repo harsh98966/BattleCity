@@ -1,8 +1,8 @@
-package com.BattleCity.level.levelgenerator.tiles;
+package com.BattleCity.level.levelgenerator.tiles.grass;
 
 import com.BattleCity.assests.Assets;
 import com.BattleCity.core.B_Object;
-import com.BattleCity.core.BattleCity;
+import com.BattleCity.core.gameStates.levelState.Gameplay;
 import com.BattleCity.tank.Tank;
 
 public class SlipRoad extends B_Object {
@@ -14,7 +14,7 @@ public class SlipRoad extends B_Object {
 
     @Override
     public void update() {
-        for(B_Object b : BattleCity.Tanks){
+        for(B_Object b : Gameplay.Tanks){
             if(b.getX() + b.getWidth() / 2 >= x && b.getX() + b.getWidth() / 2 <= x + width){
                 if(b.getY() + b.getHeight() / 2 >= y && b.getY() + b.getHeight() / 2 <= y + height){
                     if(System.currentTimeMillis() - prevTime >= 50) {

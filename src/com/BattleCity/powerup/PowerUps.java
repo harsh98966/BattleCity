@@ -4,6 +4,7 @@ import com.BattleCity.assests.Sprite;
 import com.BattleCity.core.B_Object;
 import com.BattleCity.core.BattleCity;
 import com.BattleCity.core.Collision;
+import com.BattleCity.core.gameStates.levelState.Gameplay;
 import com.BattleCity.tank.Tank;
 
 public abstract class PowerUps extends B_Object {
@@ -36,7 +37,7 @@ public abstract class PowerUps extends B_Object {
     public abstract void setProperties(Tank tank);
 
     private B_Object Collide() {
-        for (B_Object tank : BattleCity.Tanks) {
+        for (B_Object tank : Gameplay.Tanks) {
             /*int tankX = tank.getX() + tank.getWidth() / 2;
             int tankY = tank.getY() + tank.getHeight() / 2;
             if (tankX > x && tankX < x + width) {
