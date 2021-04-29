@@ -1,5 +1,5 @@
 # BattleCity
-Recreating Battle City in Java from Scratch
+"BattleCity 1992" Clone created using Java (AWT and SWING).
 
 Sprites downloaded from : https://www.spriters-resource.com/nes/batcity/
 
